@@ -1,3 +1,3 @@
 import Lottery from './Lottery';
 
-export { Lottery };
+export default { Lottery };

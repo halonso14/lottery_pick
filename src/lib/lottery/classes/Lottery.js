@@ -1,77 +1,78 @@
-class Lottery {
-	_availableNumber = 45;
-	_totalPick = 6;
-	_availableNumbers = [];
-	_picks = [];
-	constructor() {
-		this.availableNumbers = Array.from(
-			{ length: this.availableNumber },
-			(v, k) => k + 1
-		);
-	}
+/* eslint-disable no-underscore-dangle */
+export default class Lottery {
+  _availableNumber = 45;
 
-	get availableNumber() {
-		return this._availableNumber;
-	}
+  _totalPick = 6;
 
-	set availableNumber(availableNumber) {
-		this._availableNumber = availableNumber;
-	}
+  _availableNumbers = [];
 
-	get totalPick() {
-		return this._totalPick;
-	}
+  _picks = [];
 
-	set totalPick(totalPick) {
-		this._totalPick = totalPick;
-	}
+  constructor() {
+    this.availableNumbers = Array.from(
+      { length: this.availableNumber },
+      (v, k) => k + 1,
+    );
+  }
 
-	get availableNumbers() {
-		return this._availableNumbers;
-	}
+  get availableNumber() {
+    return this._availableNumber;
+  }
 
-	set availableNumbers(availableNumber) {
-		this._availableNumbers = availableNumber;
-	}
+  set availableNumber(availableNumber) {
+    this._availableNumber = availableNumber;
+  }
 
-	get picks() {
-		return this._picks;
-	}
+  get totalPick() {
+    return this._totalPick;
+  }
 
-	set picks(picks) {
-		this.include(picks);
-	}
+  set totalPick(totalPick) {
+    this._totalPick = totalPick;
+  }
 
-	exclude(numberArray) {
-		for (let i = 0; i < numberArray.length; i++) {
-			let tmpIndex = this._availableNumbers.indexOf(numberArray[i]);
-			if (tmpIndex > -1) {
-				this._availableNumbers.splice(tmpIndex, 1);
-			}
-		}
-	}
+  get availableNumbers() {
+    return this._availableNumbers;
+  }
 
-	include(numberArray) {
-		for (let i = 0; i < numberArray.length; i++) {
-			if (this._picks.length < this._totalPick) {
-				this._picks.push(numberArray[i]);
-			} else {
-				continue;
-			}
+  set availableNumbers(availableNumber) {
+    this._availableNumbers = availableNumber;
+  }
 
-			let tmpIndex = this._availableNumbers.indexOf(numberArray[i]);
-			if (tmpIndex > -1) {
-				this._availableNumbers.splice(tmpIndex, 1);
-			} else {
-				continue;
-			}
-		}
-	}
+  get picks() {
+    return this._picks;
+  }
 
-	pickLottery() {
-		while (this._picks.length < this._totalPick) {
-			let index = Math.floor(Math.random() * this._availableNumbers.length);
-			this._picks.push(this._availableNumbers[index]);
-		}
-	}
+  set picks(picks) {
+    this.include(picks);
+  }
+
+  exclude(numberArray) {
+    for (let i = 0; i < numberArray.length; i += 1) {
+      const tmpIndex = this._availableNumbers.indexOf(numberArray[i]);
+      if (tmpIndex > -1) {
+        this._availableNumbers.splice(tmpIndex, 1);
+      }
+    }
+  }
+
+  include(numberArray) {
+    for (let i = 0; i < numberArray.length; i += 1) {
+      if (this._picks.length < this._totalPick) {
+        this._picks.push(numberArray[i]);
+      }
+
+      const tmpIndex = this._availableNumbers.indexOf(numberArray[i]);
+      if (tmpIndex > -1) {
+        this._availableNumbers.splice(tmpIndex, 1);
+      }
+    }
+  }
+
+  pickLottery() {
+    while (this._picks.length < this._totalPick) {
+      const index = Math.floor(Math.random() * this._availableNumbers.length);
+      this._picks.push(this._availableNumbers[index]);
+    }
+  }
 }
