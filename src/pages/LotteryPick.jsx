@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import LotteryNumberContainer from '../containers/lottery/LotteryNumberContainer';
+import LotteryPickContainer from '../containers/lottery/LotteryPickContainer';
 // MEMO https://velog.io/@_jouz_ryul/ESLint-Prettier-Airbnb-Style-Guide%EB%A1%9C-%EC%84%A4%EC%A0%95%ED%95%98%EA%B8%B0
 
 class LotteryPick extends Component {
@@ -17,6 +18,7 @@ class LotteryPick extends Component {
         <div>test</div>
         <div>{lotteryPicks}</div>
         {/* TODO LottertTableContainer */}
+        <LotteryPickContainer />
         <LotteryNumberContainer state="none" number={1} toggle={undefined} />
       </div>
     );
