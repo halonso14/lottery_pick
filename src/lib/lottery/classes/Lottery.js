@@ -44,7 +44,7 @@ export default class Lottery {
   }
 
   set picks(picks) {
-    this.include(picks);
+    this._my_picks.push(picks);
   }
 
   selectNumber(number) {
