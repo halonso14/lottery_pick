@@ -1,21 +1,32 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useEffect } from 'react';
+import LotteryRowContainer from '../../containers/lottery/LotteryRowContainer';
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 function LotteryPickComponent(props) {
   const {
-    id,
+    count,
+    modifyCount,
     selectedNumbers,
-    // eslint-disable-next-line no-unused-vars
     modifySelected,
     blockedNumbers,
-    // eslint-disable-next-line no-unused-vars
-    modifyBlocked
+    modifyBlocked,
   } = props;
-  
+
+  useEffect(() => {
+    // TODO remove
+    modifyCount(count);
+    modifySelected(selectedNumbers);
+    modifyBlocked(modifyBlocked);
+  }, []);
 
   return (
     <div>
-      <p>{id}</p>
+      <LotteryRowContainer
+        selectedNumbers={selectedNumbers}
+        modifySelected={modifySelected}
+        blockedNumbers={blockedNumbers}
+        modifyBlocked={modifyBlocked}
+      />
       <p>{selectedNumbers}</p>
       <p>{blockedNumbers}</p>
     </div>
@@ -23,19 +34,21 @@ function LotteryPickComponent(props) {
 }
 
 LotteryPickComponent.propTypes = {
-  id: PropTypes.string,
-  selectedNumbers: PropTypes.string,
+  count: PropTypes.number,
+  modifyCount: PropTypes.func,
+  selectedNumbers: PropTypes.arrayOf(PropTypes.number),
   modifySelected: PropTypes.func,
-  blockedNumbers: PropTypes.string,
+  blockedNumbers: PropTypes.arrayOf(PropTypes.number),
   modifyBlocked: PropTypes.func,
 };
 
 LotteryPickComponent.defaultProps = {
-  id: '1',
-  selectedNumbers: [], 
+  count: 1,
+  modifyCount: undefined,
+  selectedNumbers: [],
   modifySelected: undefined,
   blockedNumbers: [],
-  modifyBlocked: undefined
+  modifyBlocked: undefined,
 };
 
 export default LotteryPickComponent;
