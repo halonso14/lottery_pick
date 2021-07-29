@@ -1,14 +1,10 @@
 /* eslint-disable no-underscore-dangle */
 export default class Lottery {
-  _available_number = 45;
-
-  _total_pick = 6;
-
-  _available_numbers = [];
-
-  _my_picks = [];
-
   constructor() {
+    this._available_number = 45;
+    this._total_pick = 6;
+    this._available_numbers = [];
+    this._my_picks = [];
     this.availableNumbers = Array.from(
       { length: this.availableNumber },
       (v, k) => k + 1,
