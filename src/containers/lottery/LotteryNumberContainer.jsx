@@ -6,16 +6,12 @@ import { generateLotteryState } from '../../lib/utils/LotteryPickGenerator';
 const LotteryNumberContainer = (props) => {
   const { entry, selectedNumbers, blockedNumbers, modifySelectedAndBlocked } =
     props;
+
   const [entryState, setEntryState] = useState(
     generateLotteryState(entry.length),
   );
 
-  const getIndex = useCallback((number) => {
-    if (number % 10) {
-      return (number % 10) - 1;
-    }
-    return 9;
-  }, []);
+  const getIndex = useCallback((number) => (number - 1) % 10, []);
 
   const toggleNumber = useCallback(
     (number) => (state) => {
