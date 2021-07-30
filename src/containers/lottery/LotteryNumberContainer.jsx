@@ -10,12 +10,19 @@ const LotteryNumberContainer = (props) => {
     generateLotteryState(entry.length),
   );
 
+  const getIndex = useCallback((number) => {
+    if (number % 10) {
+      return (number % 10) - 1;
+    }
+    return 9;
+  }, []);
+
   const toggleNumber = useCallback(
     (number) => (state) => {
       const tmpEntry = [...entryState];
       switch (state) {
         case 'selected':
-          tmpEntry[(number % 10) - 1] = 'blocked';
+          tmpEntry[getIndex(number)] = 'blocked';
           setEntryState(tmpEntry);
           blockedNumbers.push(number);
           modifySelectedAndBlocked(
@@ -24,7 +31,7 @@ const LotteryNumberContainer = (props) => {
           );
           break;
         case 'blocked':
-          tmpEntry[(number % 10) - 1] = 'none';
+          tmpEntry[getIndex(number)] = 'none';
           setEntryState(tmpEntry);
           modifySelectedAndBlocked(
             selectedNumbers,
@@ -33,7 +40,7 @@ const LotteryNumberContainer = (props) => {
           break;
         case 'none':
         default:
-          tmpEntry[(number % 10) - 1] = 'selected';
+          tmpEntry[getIndex(number)] = 'selected';
           setEntryState(tmpEntry);
           selectedNumbers.push(number);
           modifySelectedAndBlocked(selectedNumbers, blockedNumbers);
