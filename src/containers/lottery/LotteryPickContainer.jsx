@@ -22,32 +22,24 @@ const LotteryPickContainer = () => {
   ]);
 
   const modifyCount = useCallback((id) => (count) => {
-    setLotteryPickState(
-      lotteryPickState.map((lotteryPick) =>
-        lotteryPick.id === id ? { ...lotteryPick, count } : lotteryPick,
-      ),
+    const newLotteryPickState = lotteryPickState.map((lotteryPick) =>
+      lotteryPick.id === id ? { ...lotteryPick, count } : lotteryPick,
     );
+    setLotteryPickState(newLotteryPickState);
   });
 
-  const modifySelected = useCallback((id) => (selectedNumbers) => {
-    setLotteryPickState(
-      lotteryPickState.map((lotteryPick) =>
-        lotteryPick.id === id
-          ? { ...lotteryPick, selectedNumbers }
-          : lotteryPick,
-      ),
-    );
-  });
+  const modifySelectedAndBlocked = useCallback(
+    (id) => (selectedNumbers, blockedNumbers) => {
+      setLotteryPickState(
+        lotteryPickState.map((lotteryPick) =>
+          lotteryPick.id === id
+            ? { ...lotteryPick, selectedNumbers, blockedNumbers }
+            : lotteryPick,
+        ),
+      );
+    },
+  );
 
-  const modifyBlocked = useCallback((id) => (blockedNumbers) => {
-    setLotteryPickState(
-      lotteryPickState.map((lotteryPick) =>
-        lotteryPick.id === id
-          ? { ...lotteryPick, blockedNumbers }
-          : lotteryPick,
-      ),
-    );
-  });
   return (
     <div>
       {lotteryPickState.map((lotteryPick) => (
@@ -58,9 +50,8 @@ const LotteryPickContainer = () => {
             count={lotteryPick.count}
             modifyCount={modifyCount(lotteryPick.id)}
             selectedNumbers={lotteryPick.selectedNumbers}
-            modifySelected={modifySelected(lotteryPick.id)}
             blockedNumbers={lotteryPick.blockedNumbers}
-            modifyBlocked={modifyBlocked(lotteryPick.id)}
+            modifySelectedAndBlocked={modifySelectedAndBlocked(lotteryPick.id)}
           />
         </div>
       ))}

@@ -6,8 +6,7 @@ import { generateLotteryEntry } from '../../lib/utils/LotteryPickGenerator';
 
 const LotteryRowContainer = (props) => {
   const lotteryEntry = generateLotteryEntry();
-  const { selectedNumbers, modifySelected, blockedNumbers, modifyBlocked } =
-    props;
+  const { selectedNumbers, blockedNumbers, modifySelectedAndBlocked } = props;
 
   return (
     <div>
@@ -16,9 +15,8 @@ const LotteryRowContainer = (props) => {
         <LotteryRowComponent
           entry={entry}
           selectedNumbers={selectedNumbers}
-          modifySelected={modifySelected}
           blockedNumbers={blockedNumbers}
-          modifyBlocked={modifyBlocked}
+          modifySelectedAndBlocked={modifySelectedAndBlocked}
         />
       ))}
     </div>
@@ -27,16 +25,14 @@ const LotteryRowContainer = (props) => {
 
 LotteryRowContainer.propTypes = {
   selectedNumbers: PropTypes.arrayOf(PropTypes.number),
-  modifySelected: PropTypes.func,
   blockedNumbers: PropTypes.arrayOf(PropTypes.number),
-  modifyBlocked: PropTypes.func,
+  modifySelectedAndBlocked: PropTypes.func,
 };
 
 LotteryRowContainer.defaultProps = {
   selectedNumbers: [],
-  modifySelected: undefined,
   blockedNumbers: [],
-  modifyBlocked: undefined,
+  modifySelectedAndBlocked: undefined,
 };
 
 export default LotteryRowContainer;

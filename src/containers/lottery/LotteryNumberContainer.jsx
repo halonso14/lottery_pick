@@ -4,13 +4,8 @@ import LotteryNumberComponent from '../../components/lottery/LotteryNumberCompon
 import { generateLotteryState } from '../../lib/utils/LotteryPickGenerator';
 
 const LotteryNumberContainer = (props) => {
-  const {
-    entry,
-    selectedNumbers,
-    modifySelected,
-    blockedNumbers,
-    modifyBlocked,
-  } = props;
+  const { entry, selectedNumbers, blockedNumbers, modifySelectedAndBlocked } =
+    props;
   const [entryState, setEntryState] = useState(
     generateLotteryState(entry.length),
   );
@@ -22,25 +17,30 @@ const LotteryNumberContainer = (props) => {
         case 'selected':
           tmpEntry[(number % 10) - 1] = 'blocked';
           setEntryState(tmpEntry);
-          modifySelected(
+          blockedNumbers.push(number);
+          modifySelectedAndBlocked(
             selectedNumbers.filter((selected) => selected !== number),
+            blockedNumbers,
           );
-          modifyBlocked(blockedNumbers.push(number));
           break;
         case 'blocked':
           tmpEntry[(number % 10) - 1] = 'none';
           setEntryState(tmpEntry);
-          modifyBlocked(blockedNumbers.filter((blocked) => blocked !== number));
+          modifySelectedAndBlocked(
+            selectedNumbers,
+            blockedNumbers.filter((blocked) => blocked !== number),
+          );
           break;
         case 'none':
         default:
           tmpEntry[(number % 10) - 1] = 'selected';
           setEntryState(tmpEntry);
-          modifySelected(selectedNumbers.push(number));
+          selectedNumbers.push(number);
+          modifySelectedAndBlocked(selectedNumbers, blockedNumbers);
           break;
       }
     },
-    [],
+    [setEntryState, modifySelectedAndBlocked],
   );
   return (
     <div>
@@ -59,17 +59,15 @@ const LotteryNumberContainer = (props) => {
 LotteryNumberContainer.propTypes = {
   entry: PropTypes.arrayOf(PropTypes.number),
   selectedNumbers: PropTypes.arrayOf(PropTypes.number),
-  modifySelected: PropTypes.func,
   blockedNumbers: PropTypes.arrayOf(PropTypes.number),
-  modifyBlocked: PropTypes.func,
+  modifySelectedAndBlocked: PropTypes.func,
 };
 
 LotteryNumberContainer.defaultProps = {
   entry: [],
   selectedNumbers: [],
-  modifySelected: undefined,
   blockedNumbers: [],
-  modifyBlocked: undefined,
+  modifySelectedAndBlocked: undefined,
 };
 
 export default LotteryNumberContainer;
