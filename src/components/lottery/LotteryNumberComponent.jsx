@@ -7,8 +7,6 @@ const LotteryNumberBox = styled.div`
   border-radius: 3px;
   margin: 10px;
   width: 80px;
-  justify-content: center;
-  flex-direction: column;
   height: 80px;
   border: solid 2px
     ${(props) => {
