@@ -1,70 +1,46 @@
 /* eslint-disable no-underscore-dangle */
 export default class Lottery {
-  constructor() {
+  constructor(selectNumbers, blockedNumbers) {
     this._available_number = 45;
     this._total_pick = 6;
-    this._available_numbers = [];
-    this._my_picks = [];
-    this.availableNumbers = Array.from(
-      { length: this.availableNumber },
+    this._available_numbers = Array.from(
+      { length: this._available_number },
       (v, k) => k + 1,
     );
+    this._selected_numbers = selectNumbers;
+    this._blocked_numbers = blockedNumbers;
+    this._my_picks = [];
   }
 
-  get availableNumber() {
-    return this._available_number;
-  }
-
-  set availableNumber(availableNumber) {
-    this._available_number = availableNumber;
-  }
-
-  get totalPick() {
-    return this._total_pick;
-  }
-
-  set totalPick(totalPick) {
-    this._total_pick = totalPick;
-  }
-
-  get availableNumbers() {
-    return this._available_numbers;
-  }
-
-  set availableNumbers(availableNumber) {
-    this._available_numbers = availableNumber;
-  }
-
-  get picks() {
+  get result() {
     return this._my_picks;
   }
 
-  set picks(picks) {
-    this._my_picks.push(picks);
-  }
-
-  selectNumber(number) {
-    if (this._my_picks.includes(number)) {
-      return;
-    }
-
-    if (this._my_picks.length < this._total_pick) {
-      this._my_picks.push(number);
+  selectNumber(iteration) {
+    for (let i = 0; i < iteration; i += 1) {
+      const index = Math.floor(Math.random() * this._available_numbers.length);
+      this._my_picks.push(this._available_numbers[index]);
+      this._available_numbers.splice(index, 1);
     }
   }
 
-  unselectNumber(number) {
-    if (!this._my_picks.includes(number)) {
-      return;
+  removeNumber(numbers) {
+    for (let i = 0; i < numbers.length; i += 1) {
+      this._available_numbers = this._available_numbers.filter(
+        (availableNumber) => availableNumber !== numbers[i],
+      );
     }
-
-    this._my_picks.filter((pickedNumber) => pickedNumber !== number);
   }
 
   pickLottery() {
-    while (this._my_picks.length < this._total_pick) {
-      const index = Math.floor(Math.random() * this._available_numbers.length);
-      this.selectNumber(this._available_numbers[index]);
+    this.removeNumber(this._blocked_numbers);
+    if (this._selected_numbers.length > this._total_pick) {
+      this._available_numbers = this._selected_numbers;
+      this.selectNumber(this._total_pick);
+      return;
     }
+    this._my_picks = this._selected_numbers;
+    this.removeNumber(this._selected_numbers);
+    this.selectNumber(this._total_pick - this._selected_numbers.length);
   }
 }

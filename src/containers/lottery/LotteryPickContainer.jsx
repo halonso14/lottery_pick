@@ -1,5 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import LotteryPickComponent from '../../components/lottery/LotteryPickComponent';
+import Lottery from '../../lib/lottery/classes/Lottery';
 import { generateID } from '../../lib/utils/LotteryPickGenerator';
 
 const COUNT = 1;
@@ -44,6 +45,14 @@ const LotteryPickContainer = () => {
     setLotteryPickState([...lotteryPickState, createLotteryPick()]);
   }, [createLotteryPick]);
 
+  const onClickSubmit = useCallback(() => {
+    Object.values(lotteryPickState).forEach((lotteryPick) => {
+      const { selectedNumbers, blockedNumbers } = lotteryPick;
+      const lottery = new Lottery(selectedNumbers, blockedNumbers);
+      lottery.pickLottery();
+    });
+  }, [createLotteryPick]);
+
   return (
     <div>
       {lotteryPickState.map((lotteryPick) => (
@@ -62,7 +71,7 @@ const LotteryPickContainer = () => {
       <button id="add" type="button" onClick={onClickAdd}>
         Add
       </button>
-      <button id="submit" type="button" onClick={undefined}>
+      <button id="submit" type="button" onClick={onClickSubmit}>
         Submit
       </button>
     </div>

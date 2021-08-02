@@ -10,6 +10,7 @@ export function generateLotteryEntry() {
   return [
     generateNumberArray(1, 10),
     generateNumberArray(11, 10),
+    generateNumberArray(21, 10),
     generateNumberArray(31, 10),
     generateNumberArray(41, 5),
   ];
