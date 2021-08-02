@@ -2,10 +2,6 @@ import PropTypes from 'prop-types';
 import React, { useCallback } from 'react';
 import styled from 'styled-components';
 
-// const LotteryNumberBox = styled.div.attrs((props) => ({
-//   className: props.className,
-// }))`
-
 const LotteryNumberBox = styled.div`
   display: inline-block;
   border-radius: 3px;
