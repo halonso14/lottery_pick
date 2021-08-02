@@ -40,6 +40,10 @@ const LotteryPickContainer = () => {
     },
   );
 
+  const onClickAdd = useCallback(() => {
+    setLotteryPickState([...lotteryPickState, createLotteryPick()]);
+  }, [createLotteryPick]);
+
   return (
     <div>
       {lotteryPickState.map((lotteryPick) => (
@@ -55,7 +59,7 @@ const LotteryPickContainer = () => {
           />
         </div>
       ))}
-      <button id="add" type="button" onClick={undefined}>
+      <button id="add" type="button" onClick={onClickAdd}>
         Add
       </button>
       <button id="submit" type="button" onClick={undefined}>
