@@ -1,14 +1,12 @@
-import React, { Component } from 'react';
+import React from 'react';
+import LotteryPickContainer from '../containers/lottery/LotteryPickContainer';
+// MEMO https://velog.io/@_jouz_ryul/ESLint-Prettier-Airbnb-Style-Guide%EB%A1%9C-%EC%84%A4%EC%A0%95%ED%95%98%EA%B8%B0
 
-class LotteryPick extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-
-  render() {
-    return <div />;
-  }
-}
+const LotteryPick = () => (
+  <div>
+    <h1>Pick your Lottery number</h1>
+    <LotteryPickContainer />
+  </div>
+);
 
 export default LotteryPick;
