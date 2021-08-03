@@ -1,4 +1,5 @@
 import React, { useCallback, useState } from 'react';
+import { Link } from 'react-router-dom';
 import LotteryPickComponent from '../../components/lottery/LotteryPickComponent';
 import Lottery from '../../lib/lottery/classes/Lottery';
 import { generateID } from '../../lib/utils/LotteryPickGenerator';
@@ -71,9 +72,11 @@ const LotteryPickContainer = () => {
       <button id="add" type="button" onClick={onClickAdd}>
         Add
       </button>
-      <button id="submit" type="button" onClick={onClickSubmit}>
-        Submit
-      </button>
+      <Link to="/result">
+        <button id="submit" type="button" onClick={onClickSubmit}>
+          Submit
+        </button>
+      </Link>
     </div>
   );
 };

@@ -1,11 +1,14 @@
 import React from 'react';
+import { Route } from 'react-router-dom';
 import './App.css';
 import LotteryPick from './pages/LotteryPick';
+import Result from './pages/Result';
 
 function App() {
   return (
     <div className="App">
-      <LotteryPick />
+      <Route exact path="/" component={LotteryPick} />
+      <Route path="/result" component={Result} />
     </div>
   );
 }
