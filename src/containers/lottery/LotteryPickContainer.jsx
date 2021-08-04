@@ -4,23 +4,16 @@ import LotteryPickComponent from '../../components/lottery/LotteryPickComponent'
 import Lottery from '../../lib/lottery/classes/Lottery';
 import { generateID } from '../../lib/utils/LotteryPickGenerator';
 
-const COUNT = 1;
-const SELECTED_NUMBERS = [];
-const BLOCKED_NUMBERS = [];
+const DEFAULT_LOTTERY_PICK = {
+  id: generateID(),
+  count: 1,
+  selectedNumbers: [],
+  blockedNumbers: [],
+};
 
 const LotteryPickContainer = () => {
-  const createLotteryPick = useCallback(
-    () => ({
-      id: generateID(),
-      count: COUNT,
-      selectedNumbers: SELECTED_NUMBERS,
-      blockedNumbers: BLOCKED_NUMBERS,
-    }),
-    [],
-  );
-
   const [lotteryPickState, setLotteryPickState] = useState([
-    createLotteryPick(),
+    DEFAULT_LOTTERY_PICK,
   ]);
 
   const modifyCount = useCallback((id) => (count) => {
@@ -40,11 +33,13 @@ const LotteryPickContainer = () => {
         ),
       );
     },
+    [lotteryPickState, setLotteryPickState],
   );
 
   const onClickAdd = useCallback(() => {
-    setLotteryPickState([...lotteryPickState, createLotteryPick()]);
-  }, [createLotteryPick]);
+    const newState = [...lotteryPickState, DEFAULT_LOTTERY_PICK];
+    setLotteryPickState(newState);
+  }, [lotteryPickState, setLotteryPickState]);
 
   const onClickSubmit = useCallback(() => {
     Object.values(lotteryPickState).forEach((lotteryPick) => {
@@ -52,7 +47,7 @@ const LotteryPickContainer = () => {
       const lottery = new Lottery(selectedNumbers, blockedNumbers);
       lottery.pickLottery();
     });
-  }, [createLotteryPick]);
+  }, [lotteryPickState]);
 
   return (
     <div>
