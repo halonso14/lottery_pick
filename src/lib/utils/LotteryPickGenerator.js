@@ -16,13 +16,7 @@ function generateNumberArray(initialValue, range) {
 }
 
 export function generateLotteryEntry() {
-  return [
-    generateNumberArray(1, 10),
-    generateNumberArray(11, 10),
-    generateNumberArray(21, 10),
-    generateNumberArray(31, 10),
-    generateNumberArray(41, 5),
-  ];
+  return generateNumberArray(1, 45);
 }
 
 export function generateLotteryState(range) {

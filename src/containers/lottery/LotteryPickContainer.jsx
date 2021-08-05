@@ -11,28 +11,28 @@ const LotteryPickContainer = () => {
     createLotteryPick(),
   ]);
 
-  const modifyCount = useCallback(
-    (id) => (count) => {
-      const newLotteryPickState = lotteryPickState.map((lotteryPick) =>
-        lotteryPick.id === id ? { ...lotteryPick, count } : lotteryPick,
-      );
-      setLotteryPickState(newLotteryPickState);
-    },
-    [],
-  );
+  // const modifyCount = useCallback(
+  //   (id) => (count) => {
+  //     const newLotteryPickState = lotteryPickState.map((lotteryPick) =>
+  //       lotteryPick.id === id ? { ...lotteryPick, count } : lotteryPick,
+  //     );
+  //     setLotteryPickState(newLotteryPickState);
+  //   },
+  //   [],
+  // );
 
-  const modifySelectedAndBlocked = useCallback(
-    (id) => (selectedNumbers, blockedNumbers) => {
-      setLotteryPickState(
-        lotteryPickState.map((lotteryPick) =>
-          lotteryPick.id === id
-            ? { ...lotteryPick, selectedNumbers, blockedNumbers }
-            : lotteryPick,
-        ),
-      );
-    },
-    [lotteryPickState],
-  );
+  // const modifySelectedAndBlocked = useCallback(
+  //   (id) => (selectedNumbers, blockedNumbers) => {
+  //     setLotteryPickState(
+  //       lotteryPickState.map((lotteryPick) =>
+  //         lotteryPick.id === id
+  //           ? { ...lotteryPick, selectedNumbers, blockedNumbers }
+  //           : lotteryPick,
+  //       ),
+  //     );
+  //   },
+  //   [lotteryPickState],
+  // );
 
   const onClickAdd = useCallback(() => {
     const newState = [...lotteryPickState, createLotteryPick()];
@@ -53,13 +53,7 @@ const LotteryPickContainer = () => {
         // eslint-disable-next-line react/jsx-key
         <div>
           <h2>{lotteryPick.id}</h2>
-          <LotteryPickComponent
-            count={lotteryPick.count}
-            modifyCount={modifyCount(lotteryPick.id)}
-            selectedNumbers={lotteryPick.selectedNumbers}
-            blockedNumbers={lotteryPick.blockedNumbers}
-            modifySelectedAndBlocked={modifySelectedAndBlocked(lotteryPick.id)}
-          />
+          <LotteryPickComponent id={lotteryPick.id} />
         </div>
       ))}
       <button id="add" type="button" onClick={onClickAdd}>
