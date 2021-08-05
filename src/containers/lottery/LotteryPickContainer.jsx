@@ -4,24 +4,30 @@ import LotteryPickComponent from '../../components/lottery/LotteryPickComponent'
 import Lottery from '../../lib/lottery/classes/Lottery';
 import { generateID } from '../../lib/utils/LotteryPickGenerator';
 
-const DEFAULT_LOTTERY_PICK = {
-  id: generateID(),
-  count: 1,
-  selectedNumbers: [],
-  blockedNumbers: [],
-};
-
 const LotteryPickContainer = () => {
+  const createLotteryPick = useCallback(
+    () => ({
+      id: generateID(),
+      count: 1,
+      selectedNumbers: [],
+      blockedNumbers: [],
+    }),
+    [],
+  );
+
   const [lotteryPickState, setLotteryPickState] = useState([
-    DEFAULT_LOTTERY_PICK,
+    createLotteryPick(),
   ]);
 
-  const modifyCount = useCallback((id) => (count) => {
-    const newLotteryPickState = lotteryPickState.map((lotteryPick) =>
-      lotteryPick.id === id ? { ...lotteryPick, count } : lotteryPick,
-    );
-    setLotteryPickState(newLotteryPickState);
-  });
+  const modifyCount = useCallback(
+    (id) => (count) => {
+      const newLotteryPickState = lotteryPickState.map((lotteryPick) =>
+        lotteryPick.id === id ? { ...lotteryPick, count } : lotteryPick,
+      );
+      setLotteryPickState(newLotteryPickState);
+    },
+    [],
+  );
 
   const modifySelectedAndBlocked = useCallback(
     (id) => (selectedNumbers, blockedNumbers) => {
@@ -33,13 +39,13 @@ const LotteryPickContainer = () => {
         ),
       );
     },
-    [lotteryPickState, setLotteryPickState],
+    [lotteryPickState],
   );
 
   const onClickAdd = useCallback(() => {
-    const newState = [...lotteryPickState, DEFAULT_LOTTERY_PICK];
+    const newState = [...lotteryPickState, createLotteryPick()];
     setLotteryPickState(newState);
-  }, [lotteryPickState, setLotteryPickState]);
+  }, [lotteryPickState]);
 
   const onClickSubmit = useCallback(() => {
     Object.values(lotteryPickState).forEach((lotteryPick) => {
