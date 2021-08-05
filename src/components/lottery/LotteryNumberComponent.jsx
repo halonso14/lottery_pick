@@ -26,10 +26,10 @@ const LotteryNumberBox = styled.div`
 function LotteryNumberComponent(props) {
   const { state, number, toggleNumber } = props;
 
-  const handleToggleNumber = useCallback(
-    () => toggleNumber(state),
-    [toggleNumber],
-  );
+  const handleToggleNumber = useCallback(() => {
+    console.log('state, number', state, number);
+    toggleNumber(state, number);
+  }, [toggleNumber]);
   return (
     <LotteryNumberBox
       className={state}
