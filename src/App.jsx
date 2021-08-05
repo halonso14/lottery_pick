@@ -3,17 +3,16 @@ import { Route } from 'react-router-dom';
 import './App.css';
 import LotteryPick from './pages/LotteryPick';
 import Result from './pages/Result';
-import LotteryPickContext from './context/LotteryPickContext';
-import { generateLottryPick } from './lib/utils/LotteryPickGenerator';
+import { LotteryPickProvider } from './context/LotteryPickContext';
 
 function App() {
   return (
-    <LotteryPickContext.Provider value={generateLottryPick()}>
+    <LotteryPickProvider>
       <div className="App">
         <Route exact path="/" component={LotteryPick} />
         <Route path="/result" component={Result} />
       </div>
-    </LotteryPickContext.Provider>
+    </LotteryPickProvider>
   );
 }
 
