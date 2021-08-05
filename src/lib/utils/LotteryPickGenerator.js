@@ -1,5 +1,14 @@
-export function generateID() {
+function generateID() {
   return Math.random().toString(36).substr(2, 11);
+}
+
+export function generateLottryPick() {
+  return {
+    id: generateID(),
+    count: 1,
+    selectedNumbers: [],
+    blockedNumbers: [],
+  };
 }
 
 function generateNumberArray(initialValue, range) {

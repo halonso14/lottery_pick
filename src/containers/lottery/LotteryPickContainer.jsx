@@ -2,18 +2,10 @@ import React, { useCallback, useState } from 'react';
 import { Link } from 'react-router-dom';
 import LotteryPickComponent from '../../components/lottery/LotteryPickComponent';
 import Lottery from '../../lib/lottery/classes/Lottery';
-import { generateID } from '../../lib/utils/LotteryPickGenerator';
+import { generateLottryPick } from '../../lib/utils/LotteryPickGenerator';
 
 const LotteryPickContainer = () => {
-  const createLotteryPick = useCallback(
-    () => ({
-      id: generateID(),
-      count: 1,
-      selectedNumbers: [],
-      blockedNumbers: [],
-    }),
-    [],
-  );
+  const createLotteryPick = useCallback(() => generateLottryPick(), []);
 
   const [lotteryPickState, setLotteryPickState] = useState([
     createLotteryPick(),
