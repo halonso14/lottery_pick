@@ -1,5 +1,4 @@
-import PropTypes from 'prop-types';
-import React, { useCallback } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 const LotteryNumberBox = styled.div`
@@ -23,34 +22,8 @@ const LotteryNumberBox = styled.div`
 `;
 
 /* eslint-disable jsx-a11y/no-static-element-interactions */
-function LotteryNumberComponent(props) {
-  const { state, number, toggleNumber } = props;
-
-  const handleToggleNumber = useCallback(() => {
-    console.log('state, number', state, number);
-    toggleNumber(state, number);
-  }, [toggleNumber]);
-  return (
-    <LotteryNumberBox
-      className={state}
-      onClick={handleToggleNumber}
-      onKeyPress={undefined}
-    >
-      {number}
-    </LotteryNumberBox>
-  );
+function LotteryNumberComponent() {
+  return <LotteryNumberBox />;
 }
-
-LotteryNumberComponent.propTypes = {
-  state: PropTypes.string,
-  number: PropTypes.number,
-  toggleNumber: PropTypes.func,
-};
-
-LotteryNumberComponent.defaultProps = {
-  state: 'none',
-  number: 0,
-  toggleNumber: undefined,
-};
 
 export default LotteryNumberComponent;
