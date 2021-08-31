@@ -46,4 +46,8 @@ LotteryNumberComponent.defaultProps = {
   toggleNumber: () => {},
 };
 
-export default React.memo(LotteryNumberComponent);
+function isEqual(prevProps, nextProps) {
+  return prevProps.status === nextProps.status;
+}
+
+export default React.memo(LotteryNumberComponent, isEqual);

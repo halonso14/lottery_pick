@@ -46,7 +46,9 @@
     }
   },
   "plugins": [
-    "react"
+    "prettier",
+    "react",
+    "react-hooks"
   ],
   "browserslist": {
     "production": [
