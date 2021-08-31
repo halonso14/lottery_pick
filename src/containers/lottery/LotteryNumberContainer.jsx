@@ -8,12 +8,19 @@ const NUMBERS = generateLotteryEntry();
 
 const LotteryNumberContainer = (props) => {
   const { id } = props;
-  // eslint-disable-next-line no-unused-vars
-  const { lotteryPickState, addLotteryPick } = useLotteryPick();
-  // eslint-disable-next-line no-shadow
-  const toggleNumber = useCallback((id) => () => {
-    console.log('toggleNumber id', id);
-  });
+  const { lotteryPickState, toggleNumber } = useLotteryPick();
+
+  const lotteryPick = lotteryPickState.filter(
+    (currentLotteryPick) => currentLotteryPick.id === id,
+  )[0];
+
+  const onToggleNumber = useCallback(
+    // eslint-disable-next-line no-shadow
+    (id) => (event) => {
+      toggleNumber(id, event.target.value);
+    },
+    [toggleNumber],
+  );
 
   return (
     <div>
@@ -21,9 +28,11 @@ const LotteryNumberContainer = (props) => {
         // eslint-disable-next-line react/jsx-key
         <LotteryNumberComponent
           number={number}
-          toggleNumber={toggleNumber(id)}
+          toggleNumber={onToggleNumber(id)}
         />
       ))}
+      <div>{lotteryPick.selectedNumbers}</div>
+      <div>{lotteryPick.blockedNumbers}</div>
     </div>
   );
 };
@@ -36,4 +45,4 @@ LotteryNumberContainer.defaultProps = {
   id: '',
 };
 
-export default LotteryNumberContainer;
+export default React.memo(LotteryNumberContainer);

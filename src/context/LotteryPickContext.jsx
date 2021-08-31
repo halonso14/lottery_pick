@@ -19,13 +19,17 @@ const lotteryPickReducer = produce((draft, action) => {
       break;
     case 'BLOCK':
       lotteryPick = draft.find((pick) => pick.id === action.payload.id);
-      index = lotteryPick.selectedNumbers.findIndex(action.payload.number);
+      index = lotteryPick.selectedNumbers.findIndex(
+        (selectedNumber) => selectedNumber === action.payload.number,
+      );
       lotteryPick.selectedNumbers.splice(index, 1);
       lotteryPick.blockedNumbers.push(action.payload.number);
       break;
     case 'UNBLOCK':
       lotteryPick = draft.find((pick) => pick.id === action.payload.id);
-      index = lotteryPick.blockedNumbers.findIndex(action.payload.number);
+      index = lotteryPick.blockedNumbers.findIndex(
+        (blockedNumber) => blockedNumber === action.payload.number,
+      );
       lotteryPick.blockedNumbers.splice(index, 1);
       break;
     default:
@@ -41,9 +45,39 @@ export function useLotteryPick() {
   const [lotteryPickState, dispatch] = context;
 
   const addLotteryPick = () => dispatch({ type: 'ADD' });
-  const selectNumber = (id, number) => dispatch({ type: 'SELECT', id, number });
-  const blockNumber = (id, number) => dispatch({ type: 'BLOCK', id, number });
-  const unblockNumber = (id, number) => dispatch({ type: 'BLOCK', id, number });
+  const selectNumber = (id, number) =>
+    dispatch({ type: 'SELECT', payload: { id, number } });
+  const blockNumber = (id, number) =>
+    dispatch({ type: 'BLOCK', payload: { id, number } });
+  const unblockNumber = (id, number) =>
+    dispatch({ type: 'UNBLOCK', payload: { id, number } });
+
+  const toggleNumber = (id, number) => {
+    let firstSelectedNumber;
+    let firstBlockedNumber;
+    const selectedLotteryPick = lotteryPickState.filter(
+      (lotteryPick) => lotteryPick.id === id,
+    )[0];
+    if (selectedLotteryPick.selectedNumbers) {
+      firstSelectedNumber = selectedLotteryPick.selectedNumbers.find(
+        (selectedNumber) => selectedNumber === number,
+      );
+    }
+
+    if (selectedLotteryPick.blockedNumbers) {
+      firstBlockedNumber = selectedLotteryPick.blockedNumbers.find(
+        (blockedNumber) => blockedNumber === number,
+      );
+    }
+
+    if (firstSelectedNumber) {
+      blockNumber(id, number);
+    } else if (firstBlockedNumber) {
+      unblockNumber(id, number);
+    } else {
+      selectNumber(id, number);
+    }
+  };
 
   return {
     lotteryPickState,
@@ -51,6 +85,7 @@ export function useLotteryPick() {
     selectNumber,
     blockNumber,
     unblockNumber,
+    toggleNumber,
   };
 }
 

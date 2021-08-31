@@ -40,4 +40,4 @@ const LotteryPickContainer = () => {
   );
 };
 
-export default LotteryPickContainer;
+export default React.memo(LotteryPickContainer);

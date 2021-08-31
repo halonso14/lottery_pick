@@ -26,8 +26,12 @@ import PropTypes from 'prop-types';
 function LotteryNumberComponent(props) {
   // eslint-disable-next-line no-unused-vars
   const { number, toggleNumber } = props;
-  // eslint-disable-next-line react/button-has-type
-  return <button onClick={toggleNumber}>{number}</button>;
+  return (
+    // eslint-disable-next-line react/button-has-type
+    <button onClick={toggleNumber} value={number}>
+      {number}
+    </button>
+  );
 }
 
 LotteryNumberComponent.propTypes = {
@@ -40,4 +44,4 @@ LotteryNumberComponent.defaultProps = {
   toggleNumber: () => {},
 };
 
-export default LotteryNumberComponent;
+export default React.memo(LotteryNumberComponent);
