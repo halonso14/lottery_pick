@@ -22,12 +22,26 @@ const LotteryNumberContainer = (props) => {
     [toggleNumber],
   );
 
+  const validateStatus = useCallback(
+    (number) => {
+      if (lotteryPick.selectedNumbers.includes(`${number}`)) {
+        return 'selected';
+      }
+      if (lotteryPick.blockedNumbers.includes(`${number}`)) {
+        return 'blocked';
+      }
+      return 'none';
+    },
+    [lotteryPickState],
+  );
+
   return (
     <div>
       {NUMBERS.map((number) => (
         // eslint-disable-next-line react/jsx-key
         <LotteryNumberComponent
           number={number}
+          status={validateStatus(number)}
           toggleNumber={onToggleNumber(id)}
         />
       ))}
