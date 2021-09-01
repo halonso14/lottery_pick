@@ -1,8 +1,9 @@
+/* eslint-disable react/button-has-type */
+import React from 'react';
 import PropTypes from 'prop-types';
-import React, { useCallback } from 'react';
 import styled from 'styled-components';
 
-const LotteryNumberBox = styled.div`
+const LotteryNumberBox = styled.button`
   display: inline-block;
   border-radius: 3px;
   margin: 10px;
@@ -24,33 +25,29 @@ const LotteryNumberBox = styled.div`
 
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 function LotteryNumberComponent(props) {
-  const { state, number, toggleNumber } = props;
-
-  const handleToggleNumber = useCallback(
-    () => toggleNumber(state),
-    [toggleNumber],
-  );
+  // eslint-disable-next-line no-unused-vars
+  const { number, status, toggleNumber } = props;
   return (
-    <LotteryNumberBox
-      className={state}
-      onClick={handleToggleNumber}
-      onKeyPress={undefined}
-    >
+    <LotteryNumberBox className={status} onClick={toggleNumber} value={number}>
       {number}
     </LotteryNumberBox>
   );
 }
 
 LotteryNumberComponent.propTypes = {
-  state: PropTypes.string,
   number: PropTypes.number,
+  status: PropTypes.string,
   toggleNumber: PropTypes.func,
 };
 
 LotteryNumberComponent.defaultProps = {
-  state: 'none',
   number: 0,
-  toggleNumber: undefined,
+  status: '',
+  toggleNumber: () => {},
 };
 
-export default LotteryNumberComponent;
+function isEqual(prevProps, nextProps) {
+  return prevProps.status === nextProps.status;
+}
+
+export default React.memo(LotteryNumberComponent, isEqual);
