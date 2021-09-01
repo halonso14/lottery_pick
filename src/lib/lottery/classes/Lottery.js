@@ -10,14 +10,25 @@ export default class Lottery {
     this._selected_numbers = selectNumbers;
     this._blocked_numbers = blockedNumbers;
     this._my_picks = [];
+    this.selectNumber = this.selectNumber.bind(this);
+    this.removeNumber = this.removeNumber.bind(this);
+    this.drawLottery = this.drawLottery.bind(this);
+  }
+
+  get selectedNumbers() {
+    return this._selected_numbers;
+  }
+
+  get blockedNumbers() {
+    return this._blocked_numbers;
   }
 
   get result() {
     return this._my_picks;
   }
 
-  selectNumber(iteration) {
-    for (let i = 0; i < iteration; i += 1) {
+  selectNumber(numberOfDraw) {
+    for (let i = 0; i < numberOfDraw; i += 1) {
       const index = Math.floor(Math.random() * this._available_numbers.length);
       this._my_picks.push(this._available_numbers[index]);
       this._available_numbers.splice(index, 1);
@@ -27,20 +38,19 @@ export default class Lottery {
   removeNumber(numbers) {
     for (let i = 0; i < numbers.length; i += 1) {
       this._available_numbers = this._available_numbers.filter(
-        (availableNumber) => availableNumber !== numbers[i],
+        (availableNumber) => availableNumber !== numbers[i] / 1,
       );
     }
   }
 
-  pickLottery() {
-    this.removeNumber(this._blocked_numbers);
-    if (this._selected_numbers.length > this._total_pick) {
-      this._available_numbers = this._selected_numbers;
-      this.selectNumber(this._total_pick);
-      return;
+  drawLottery() {
+    if (this._selected_numbers.length >= this._total_pick) {
+      this._available_numbers = [...this._selected_numbers];
+    } else {
+      this.removeNumber(this._blocked_numbers);
+      this._my_picks = [...this._selected_numbers];
+      this.removeNumber(this._selected_numbers);
     }
-    this._my_picks = this._selected_numbers;
-    this.removeNumber(this._selected_numbers);
-    this.selectNumber(this._total_pick - this._selected_numbers.length);
+    this.selectNumber(this._total_pick - this._my_picks.length);
   }
 }

@@ -23,9 +23,7 @@ const LotteryNumberBox = styled.button`
     }};
 `;
 
-/* eslint-disable jsx-a11y/no-static-element-interactions */
 function LotteryNumberComponent(props) {
-  // eslint-disable-next-line no-unused-vars
   const { number, status, toggleNumber } = props;
   return (
     <LotteryNumberBox className={status} onClick={toggleNumber} value={number}>

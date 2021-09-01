@@ -17,17 +17,17 @@ const LotteryNumberContainer = (props) => {
   const onToggleNumber = useCallback(
     // eslint-disable-next-line no-shadow
     (id) => (event) => {
-      toggleNumber(id, event.target.value);
+      toggleNumber(id, event.target.value / 1);
     },
     [toggleNumber],
   );
 
   const validateStatus = useCallback(
     (number) => {
-      if (lotteryPick.selectedNumbers.includes(`${number}`)) {
+      if (lotteryPick.selectedNumbers.includes(number)) {
         return 'selected';
       }
-      if (lotteryPick.blockedNumbers.includes(`${number}`)) {
+      if (lotteryPick.blockedNumbers.includes(number)) {
         return 'blocked';
       }
       return 'none';

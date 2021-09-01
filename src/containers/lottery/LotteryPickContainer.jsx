@@ -1,7 +1,6 @@
 import React, { useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import LotteryNumberContainer from './LotteryNumberContainer';
-import Lottery from '../../lib/lottery/classes/Lottery';
 import { useLotteryPick } from '../../context/LotteryPickContext';
 
 const LotteryPickContainer = () => {
@@ -10,14 +9,6 @@ const LotteryPickContainer = () => {
   const onClickAdd = useCallback(() => {
     addLotteryPick();
   }, []);
-
-  const onClickSubmit = useCallback(() => {
-    Object.values(lotteryPickState).forEach((lotteryPick) => {
-      const { selectedNumbers, blockedNumbers } = lotteryPick;
-      const lottery = new Lottery(selectedNumbers, blockedNumbers);
-      lottery.pickLottery();
-    });
-  }, [lotteryPickState]);
 
   return (
     <div>
@@ -32,7 +23,7 @@ const LotteryPickContainer = () => {
         Add
       </button>
       <Link to="/result">
-        <button id="submit" type="button" onClick={onClickSubmit}>
+        <button id="submit" type="button">
           Submit
         </button>
       </Link>

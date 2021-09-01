@@ -58,13 +58,13 @@ export function useLotteryPick() {
     const selectedLotteryPick = lotteryPickState.filter(
       (lotteryPick) => lotteryPick.id === id,
     )[0];
-    if (selectedLotteryPick.selectedNumbers) {
+    if (selectedLotteryPick.selectedNumbers.length) {
       firstSelectedNumber = selectedLotteryPick.selectedNumbers.find(
         (selectedNumber) => selectedNumber === number,
       );
     }
 
-    if (selectedLotteryPick.blockedNumbers) {
+    if (selectedLotteryPick.blockedNumbers.length) {
       firstBlockedNumber = selectedLotteryPick.blockedNumbers.find(
         (blockedNumber) => blockedNumber === number,
       );

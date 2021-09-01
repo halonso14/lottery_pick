@@ -1,9 +1,9 @@
 import React from 'react';
-import ResultComponent from '../components/lottery/ResultComponent';
+import LotteryDrawContainer from '../containers/lottery/LotteryDrawContainer';
 
 const Result = () => (
   <div>
-    <ResultComponent />
+    <LotteryDrawContainer />
   </div>
 );
 
