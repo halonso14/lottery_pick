@@ -25,10 +25,7 @@ const LotteryPickContainer = () => {
         // eslint-disable-next-line react/jsx-key
         <div>
           <h2>{lotteryPick.id}</h2>
-          <LotteryNumberContainer
-            id={lotteryPick.id}
-            lotteryPick={lotteryPick}
-          />
+          <LotteryNumberContainer id={lotteryPick.id} />
         </div>
       ))}
       <button id="add" type="button" onClick={onClickAdd}>
