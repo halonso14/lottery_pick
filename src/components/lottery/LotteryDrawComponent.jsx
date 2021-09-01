@@ -5,7 +5,7 @@ const LotteryDrawComponent = (props) => {
   const { lotteryPick } = props;
   return (
     // eslint-disable-next-line react/jsx-key
-    <fragment>
+    <div>
       {lotteryPick.selectedNumbers.length ? (
         <p>{`You have selected : ${lotteryPick.selectedNumbers}`}</p>
       ) : undefined}
@@ -13,7 +13,7 @@ const LotteryDrawComponent = (props) => {
         <p>{`You have blocked : ${lotteryPick.blockedNumbers}`}</p>
       ) : undefined}
       <p>{`You have drawed : ${lotteryPick.result}`}</p>
-    </fragment>
+    </div>
   );
 };
 

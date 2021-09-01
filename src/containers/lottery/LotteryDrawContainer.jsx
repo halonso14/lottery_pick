@@ -1,7 +1,8 @@
 import React, { useCallback } from 'react';
-import Lottery from '../../lib/lottery/classes/Lottery';
-import { useLotteryPick } from '../../context/LotteryPickContext';
+import { Link } from 'react-router-dom';
 import LotteryDrawComponent from '../../components/lottery/LotteryDrawComponent';
+import { useLotteryPick } from '../../context/LotteryPickContext';
+import Lottery from '../../lib/lottery/classes/Lottery';
 
 const LotteryDrawContainer = () => {
   const { lotteryPickState } = useLotteryPick();
@@ -26,6 +27,11 @@ const LotteryDrawContainer = () => {
           />
         </div>
       ))}
+      <Link to="/">
+        <button id="submit" type="button">
+          Back
+        </button>
+      </Link>
     </div>
   );
 };
