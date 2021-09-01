@@ -7,19 +7,15 @@ import { useLotteryPick } from '../../context/LotteryPickContext';
 const NUMBERS = generateLotteryEntry();
 
 const LotteryNumberContainer = (props) => {
-  const { id } = props;
-  const { lotteryPickState, toggleNumber } = useLotteryPick();
-
-  const lotteryPick = lotteryPickState.filter(
-    (currentLotteryPick) => currentLotteryPick.id === id,
-  )[0];
+  const { id, lotteryPick } = props;
+  const { toggleNumber } = useLotteryPick();
 
   const onToggleNumber = useCallback(
     // eslint-disable-next-line no-shadow
     (id) => (event) => {
       toggleNumber(id, event.target.value);
     },
-    [toggleNumber],
+    [lotteryPick],
   );
 
   const validateStatus = useCallback(
@@ -32,7 +28,7 @@ const LotteryNumberContainer = (props) => {
       }
       return 'none';
     },
-    [lotteryPickState],
+    [lotteryPick],
   );
 
   return (
@@ -53,10 +49,17 @@ const LotteryNumberContainer = (props) => {
 
 LotteryNumberContainer.propTypes = {
   id: PropTypes.string,
+  lotteryPick: PropTypes.shape({
+    id: PropTypes.string,
+    count: PropTypes.number,
+    selectedNumbers: PropTypes.arrayOf(PropTypes.string),
+    blockedNumbers: PropTypes.arrayOf(PropTypes.string),
+  }),
 };
 
 LotteryNumberContainer.defaultProps = {
   id: '',
+  lotteryPick: {},
 };
 
-export default React.memo(LotteryNumberContainer);
+export default LotteryNumberContainer;

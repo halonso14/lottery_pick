@@ -25,7 +25,10 @@ const LotteryPickContainer = () => {
         // eslint-disable-next-line react/jsx-key
         <div>
           <h2>{lotteryPick.id}</h2>
-          <LotteryNumberContainer id={lotteryPick.id} />
+          <LotteryNumberContainer
+            id={lotteryPick.id}
+            lotteryPick={lotteryPick}
+          />
         </div>
       ))}
       <button id="add" type="button" onClick={onClickAdd}>
@@ -40,4 +43,4 @@ const LotteryPickContainer = () => {
   );
 };
 
-export default React.memo(LotteryPickContainer);
+export default LotteryPickContainer;
